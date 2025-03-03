@@ -1,4 +1,4 @@
-from src.math_operations import add,sub
+from src.math_operations import add
 
 def testadd():
     assert add(1,1)==2
