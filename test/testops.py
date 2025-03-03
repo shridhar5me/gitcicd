@@ -1,5 +1,5 @@
 from src.math_operations import add
 
-def testadd():
-    assert add(1,1)==2
-    assert add(1,4)==5
+def test_add():
+    assert add(2,3)==5
+    assert add(-1,1)==0
