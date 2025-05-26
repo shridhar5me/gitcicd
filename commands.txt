@@ -1,0 +1,274 @@
+PS C:\Users\Admin\Desktop\new> git init
+On branch master
+No commits yet
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        abc.txt
+
+git config --global user.email "your-email@gmail.com"
+git config --global user.name "Your Name"
+
+PS C:\Users\Admin\Desktop\new> git add abc.txt
+PS C:\Users\Admin\Desktop\new> git commit -m "abc"
+[master (root-commit) 3067099] abc
+ 1 file changed, 1 insertion(+)
+ create mode 100644 abc.txt
+
+
+PS C:\Users\Admin\Desktop\new> git status
+On branch master
+nothing to commit, working tree clean
+
+
+PS C:\Users\Admin\Desktop\new> git log --oneline
+3067099 (HEAD -> master) abc
+
+PS C:\Users\Admin\Desktop\new> git branch
+* master
+
+
+
+PS C:\Users\Admin\Desktop\new> git branch branch1
+PS C:\Users\Admin\Desktop\new> git branch
+  branch1
+* master
+
+
+PS C:\Users\Admin\Desktop\new> git switch branch1
+M       commands.txt
+Switched to branch 'branch1'
+PS C:\Users\Admin\Desktop\new> git branch        
+* branch1
+  master
+
+
+PS C:\Users\Admin\Desktop\new> git switch -c branch2  
+Switched to a new branch 'branch2'
+PS C:\Users\Admin\Desktop\new> git branch
+  branch1
+* branch2
+  master
+
+
+PS C:\Users\Admin\Desktop\new> git checkout master     
+M       commands.txt
+Switched to branch 'master'
+PS C:\Users\Admin\Desktop\new> git branch
+  branch1
+  branch2
+* master
+
+
+PS C:\Users\Admin\Desktop\new> git branch -m branch2 newbranch
+PS C:\Users\Admin\Desktop\new> git branch
+  branch1
+* master
+  newbranch
+
+
+PS C:\Users\Admin\Desktop\new> git branch -d newbranch    
+Deleted branch newbranch (was e827a33).
+
+
+PS C:\Users\Admin\Desktop\new> git add branch2file.txt        
+PS C:\Users\Admin\Desktop\new> git commit -m "first"
+[branch2 eaba43d] first
+ 1 file changed, 1 insertion(+)
+ create mode 100644 branch2file.txt
+ 
+ 
+ *Now this branch2file will be not visible when we switch to other branch...so we need to merge them*
+
+
+ PS C:\Users\Admin\Desktop\new> git merge branch2
+Updating e827a33..eaba43d
+Fast-forward
+ branch2file.txt | 1 +
+ 1 file changed, 1 insertion(+)
+ create mode 100644 branch2file.txt
+
+
+Switched to branch 'master'
+PS C:\Users\Admin\Desktop\new> git merge branch2       
+Auto-merging branch2file.txt
+CONFLICT (content): Merge conflict in branch2file.txt
+Automatic merge failed; fix conflicts and then commit the result.
+PS C:\Users\Admin\Desktop\new> git merge branch2
+error: Merging is not possible because you have unmerged files.
+hint: Fix them up in the work tree, and then use 'git add/rm <file>'
+hint: as appropriate to mark resolution and make a commit.
+fatal: Exiting because of an unresolved conflict.
+
+
+PS C:\Users\Admin\Desktop\new> git diff 
+diff --git a/commands.txt b/commands.txt
+index 1c8f0c8..d50aaab 100644
+--- a/commands.txt
++++ b/commands.txt
+@@ -82,4 +82,16 @@ Updating e827a33..eaba43d
+ Fast-forward
+  branch2file.txt | 1 +
+  1 file changed, 1 insertion(+)
+- create mode 100644 branch2file.txt
+\ No newline at end of file
++ create mode 100644 branch2file.txt
+
+
+PS C:\Users\Admin\Desktop\new> git diff branch1 branch2
+diff --git a/branch2file.txt b/branch2file.txt
+new file mode 100644
+index 0000000..3dc47d2
+--- /dev/null
++++ b/branch2file.txt
+@@ -0,0 +1,5 @@
++branch2 file.
++first
++second
++third
++four
+
+
+
+PS C:\Users\Admin\Desktop\new> git log --oneline
+15b94b8 (branch2) conflict
+53d6057 conflict
+52a155c Merge branch 'branch2' 1
+0ee7acf first
+df8528a first
+9ee0e13 first
+dea90b4 first
+4e45ab0 first
+04ca781 first
+e47f09a first
+PS C:\Users\Admin\Desktop\new> git diff 0ee7acf..9ee0e13
+diff --git a/branch2file.txt b/branch2file.txt
+index f5fd4e2..daac1d7 100644
+--- a/branch2file.txt
++++ b/branch2file.txt
+@@ -1,4 +1,2 @@
+ branch2 file.
+-first
+-second
+-third
+\ No newline at end of file
++first
+
+
+PS C:\Users\Admin\Desktop\new> git checkout master      
+error: Your local changes to the following files would be overwritten by checkout:
+        branch2file.txt
+Please commit your changes or stash them before you switch branches.
+Aborting
+PS C:\Users\Admin\Desktop\new> git stash
+Saved working directory and index state WIP on branch2: 15b94b8 conflict
+
+
+PS C:\Users\Admin\Desktop\new> git stash list
+stash@{0}: WIP on branch2: 15b94b8 conflict
+
+
+PS C:\Users\Admin\Desktop\new> git stash clear
+PS C:\Users\Admin\Desktop\new> git stash list 
+PS C:\Users\Admin\Desktop\new>
+
+
+PS C:\Users\Admin\Desktop\new> git tag 5me   
+PS C:\Users\Admin\Desktop\new> git tag      
+5me
+
+PS C:\Users\Admin\Desktop\new> git log --oneline        
+15b94b8 (branch2) conflict
+53d6057 conflict
+52a155c Merge branch 'branch2' 1
+0ee7acf first
+df8528a first
+9ee0e13 first
+dea90b4 first
+4e45ab0 first
+04ca781 first
+PS C:\Users\Admin\Desktop\new> git tag committag df8528a
+PS C:\Users\Admin\Desktop\new> git tag
+5me
+committag
+
+PS C:\Users\Admin\Desktop\new> git tag -d committag
+Deleted tag 'committag' (was df8528a)
+
+
+PS C:\Users\Admin\Desktop\new> git switch -c branch3
+PS C:\Users\Admin\Desktop\new> git add branch3file.txt 
+PS C:\Users\Admin\Desktop\new> git commit -m "branch3commit"
+[branch3 983c308] branch3commit
+ 1 file changed, 1 insertion(+)
+ create mode 100644 branch3file.txt
+PS C:\Users\Admin\Desktop\new> git branch
+  branch1
+  branch2
+* branch3
+  master
+PS C:\Users\Admin\Desktop\new> git switch master
+Switched to branch 'master'
+PS C:\Users\Admin\Desktop\new> git log --oneline
+328506b (HEAD -> master) Merge branch 'branch3'--extra commit
+97579c5 mastercommit
+983c308 (branch3) branch3commit
+72c157c conflict
+0b50512 (tag: 5me) conflict
+4ec3a37 Merge branch 'branch2'
+15b94b8 (branch2) conflict
+53d6057 conflict
+52a155c Merge branch 'branch2' 1
+0ee7acf first
+df8528a first
+
+
+PS C:\Users\Admin\Desktop\new> git switch branch3
+Switched to branch 'branch3'
+PS C:\Users\Admin\Desktop\new> git rebase master
+Successfully rebased and updated refs/heads/branch3.
+*No extra commit*
+
+
+PS C:\Users\Admin\Desktop\new> git reflog
+0b72c1c (HEAD -> branch3) HEAD@{0}: rebase (finish): returning to refs/heads/branch3
+0b72c1c (HEAD -> branch3) HEAD@{1}: rebase (pick): branch3commit
+3826b9b (master) HEAD@{2}: rebase (start): checkout master
+76c9086 HEAD@{3}: checkout: moving from master to branch3
+3826b9b (master) HEAD@{4}: commit: mastercommit
+695cd7c HEAD@{5}: commit: branch3commit
+a2044a5 HEAD@{6}: checkout: moving from branch3 to master
+76c9086 HEAD@{7}: commit: branch3commit
+983c308 HEAD@{8}: checkout: moving from master to branch3
+a2044a5 HEAD@{9}: commit: mastercommit
+328506b HEAD@{10}: merge branch3: Merge made by the 'ort' strategy.
+
+
+
+PS C:\Users\Admin\Desktop\new> git remote add origin https://github.com/shridhar5me/firstpro.git
+PS C:\Users\Admin\Desktop\new> git branch -M main
+PS C:\Users\Admin\Desktop\new> git push -u origin main
+Enumerating objects: 64, done.
+Counting objects: 100% (64/64), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (51/51), done.
+Writing objects: 100% (64/64), 6.99 KiB | 596.00 KiB/s, done.
+Total 64 (delta 20), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (20/20), done.
+To https://github.com/shridhar5me/firstpro.git
+ * [new branch]      main -> main
+branch 'main' set up to track 'origin/main'.
+
+
+PS C:\Users\Admin\Desktop\new> git push
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 943 bytes | 943.00 KiB/s, done.
+Total 3 (delta 2), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (2/2), completed with 2 local objects.
+To https://github.com/shridhar5me/firstpro.git
+   3826b9b..670aa34  main -> main
+
+
+ssh-keygen -t ed25519 -C "email@gmail.com.com"
