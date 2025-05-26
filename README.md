@@ -1,1 +1,1 @@
-Hello and welcome dosto to 5 minutes engineering hindi
+Hello and welcome dosto to 5 minutes engineering
